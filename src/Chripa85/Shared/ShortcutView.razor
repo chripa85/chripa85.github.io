@@ -1,11 +1,35 @@
-﻿
-
-@if (ShortcutMap != null)
+﻿@if (ShortcutMap != null)
 {
-    foreach (var category in ShortcutMap.GetCategoryNames())
+    <MudText Typo="Typo.h1" GutterBottom=true>Shortcuts</MudText>
+
+    <MudSelect Label="Select a category"
+           @bind-Text="@_selectedText"
+           T="string"
+           Immediate
+           Style="padding-bottom:2rem"
+            ValueChanged="UpdateSelection">
+
+        <MudSelectItem Value="@string.Empty">Show all</MudSelectItem>
+
+        @foreach (var item in _categoryNames)
+        {
+            <MudSelectItem Value="@item">@item</MudSelectItem>
+        }
+    </MudSelect>
+
+    if (_isSelected)
     {
-        var shortcuts = ShortcutMap.GetCategory(category);
-        
-        <ShortcutCategoryView Shortcuts="@shortcuts" />
+        <ShortcutCategoryView Shortcuts="@_selectedShortcuts" />
+    }
+    else 
+    {
+        foreach (var category in _categoryNames)
+        {
+            var shortcuts = ShortcutMap.GetCategory(category);
+
+            <ShortcutCategoryView Shortcuts="@shortcuts" />
+        }
     }
 }
+
+<span class="visually-hidden" aria-live="assertive" live>@_selectedText</span>
