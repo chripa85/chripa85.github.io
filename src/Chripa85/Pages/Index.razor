@@ -2,3 +2,19 @@
 
 <MudText Typo="Typo.h1">Welcome</MudText>
 
+<MudButton OnClick="@(async () => await Load())" Disabled=@_isLoading Variant="Variant.Outlined" Color="Color.Primary">
+    @if (_isLoading) 
+    {
+        <MudProgressCircular Color="@Color.Info" Size="Size.Large" Indeterminate />
+        <MudText>Loading...</MudText>
+    }
+    else
+    {
+        <MudText>Load items</MudText>
+    }
+</MudButton>
+
+@if (_shortcutMap != null)
+{
+    <ShortcutView ShortcutMap="@_shortcutMap" />
+}

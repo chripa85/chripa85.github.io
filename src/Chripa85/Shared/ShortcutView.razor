@@ -1,0 +1,11 @@
+﻿
+
+@if (ShortcutMap != null)
+{
+    foreach (var category in ShortcutMap.GetCategoryNames())
+    {
+        var shortcuts = ShortcutMap.GetCategory(category);
+        
+        <ShortcutCategoryView Shortcuts="@shortcuts" />
+    }
+}

@@ -1,0 +1,19 @@
+﻿@using Chripa85.Models
+@if (_category != null)
+{
+    <MudText Typo="Typo.h4">@_category</MudText>
+
+    <MudTable Items="@Shortcuts">
+        <HeaderContent>
+            <MudTh>Action</MudTh>
+            <MudTh>Keys</MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd>@context.Action</MudTd>
+            <MudTd>@context.Keys</MudTd>
+        </RowTemplate>
+
+
+    </MudTable>
+}
