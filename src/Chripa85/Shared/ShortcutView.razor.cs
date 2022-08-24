@@ -1,12 +1,14 @@
-﻿using Chripa85.Models;
+﻿using System;
+using Chripa85.Models;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace Chripa85.Shared;
 
 public partial class ShortcutView : ComponentBase
 {
-    private string _selectedText = "";
-    bool _isSelected = false;
+    private string? _selectedCategory;
+    
     private IEnumerable<Shortcut> _selectedShortcuts = Enumerable.Empty<Shortcut>();
 
     private IEnumerable<string> _categoryNames = Enumerable.Empty<string>();
@@ -20,18 +22,20 @@ public partial class ShortcutView : ComponentBase
         _categoryNames = ShortcutMap.GetCategoryNames();
     }
 
-    private void UpdateSelection(string val)
+    private void UpdateSelection(string? val)
     {
-        if (val == string.Empty)
+        _selectedCategory = val;
+
+        if (val is null)
         {
             _selectedShortcuts = Enumerable.Empty<Shortcut>();
-            _isSelected = false;
         }else
         {
             _selectedShortcuts = ShortcutMap.GetCategory(val);
-            _isSelected = true;
         }
         
         StateHasChanged();
     }
 }
+
+

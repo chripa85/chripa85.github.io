@@ -2,22 +2,12 @@
 {
     <MudText Typo="Typo.h1" GutterBottom=true>Shortcuts</MudText>
 
-    <MudSelect Label="Select a category"
-           @bind-Text="@_selectedText"
-           T="string"
-           Immediate
-           Style="padding-bottom:2rem"
-            ValueChanged="UpdateSelection">
+    <HxSelect Label="Select a category" TItem="string" TValue="string" Data="@_categoryNames" TextSelector="@(p => p)" ValueSelector="@(p => p)" Nullable="true" NullText="Show All" NullDataText="Loading "
+        ValueExpression="() => _selectedCategory"
+        ValueChanged="UpdateSelection" />
 
-        <MudSelectItem Value="@string.Empty">Show all</MudSelectItem>
 
-        @foreach (var item in _categoryNames)
-        {
-            <MudSelectItem Value="@item">@item</MudSelectItem>
-        }
-    </MudSelect>
-
-    if (_isSelected)
+    if (_selectedCategory is not null)
     {
         <ShortcutCategoryView Shortcuts="@_selectedShortcuts" />
     }
@@ -31,5 +21,3 @@
         }
     }
 }
-
-<span class="visually-hidden" aria-live="assertive" live>@_selectedText</span>
